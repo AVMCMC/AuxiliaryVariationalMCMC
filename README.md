@@ -1,8 +1,8 @@
 # Auxiliary Variational MCMC
 
 This repository contains code needed to reproduce or extend the experiments in the ICLR submission [Auxiliary Variational MCMC]().
-The repository contains code both to draw samples using Auxiliary Variational MCMC and also [A-NICE-MCMC]() and [L2HMC](). We
-would like to extend their thanks to the authors of both these papers for open sourcing their code and we have included lightly
+The repository contains code both to draw samples using Auxiliary Variational MCMC and also [A-NICE-MCMC](https://github.com/ermongroup/a-nice-mc) and [L2HMC](https://github.com/brain-research/l2hmc). We
+would like to extend our thanks to the authors of both these papers for open sourcing their code and we have included lightly
 edited versions of their code here.
 
 ## Dependencies
