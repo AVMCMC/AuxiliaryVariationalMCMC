@@ -24,6 +24,8 @@ However, in high-dimensional spaces almost all directions will correspondto step
 and thus out of the typical set. In our case, we perform the random perturbation in the low-dimensional auxiliary space 
 and our variational distribution ensures that this move remains within the manifold of high density.
 
-The process is depicted in the cartoon below.
+The process is depicted in the cartoon below, which shows that we map from the target space down to a low dimensional 
+auxiliary space, where we perturb before being mapped to a new more distant point in the target space. The variational
+distributions ensure that both x and x' are in regions of high probability mass.
 
 ![cartoon](figs/cartoon.png)
