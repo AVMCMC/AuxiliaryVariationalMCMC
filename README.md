@@ -7,7 +7,7 @@ edited versions of their code here.
 
 ## Dependencies
 
-The dependencies are Numpy, Matplotlib, Tensorflow and Tensorflow_probability.
+The dependencies are Numpy, Matplotlib, Tensorflow and tensorflow_probability.
 
 ## Usage
 
@@ -22,7 +22,7 @@ have high probability only close to some low-dimensional manifold. The tradition
 new samples by perturbing the most recent sample in an arbitrary direction, usually based on a Gaussian proposal.
 However, in high-dimensional spaces almost all directions will correspondto steps off the manifold of high probability
 and thus out of the typical set. In our case, we perform the random perturbation in the low-dimensional auxiliary space 
-and our variational distribution ensures that this move remains within the manifold of high density.
+and our variational distribution ensures that this move remains within the manifold of high probability.
 
 The process is depicted in the cartoon below, which shows that we map from the target space down to a low dimensional 
 auxiliary space, where we perturb before being mapped to a new more distant point in the target space. The variational

@@ -21,7 +21,7 @@ class Experiment:
     def __init__(self, log_dir, sampler, dist, params, debug=False):
         self.dist = dist
         self.logs = make_run_dir(log_dir)
-        self.sess = tf.Session()  # TODO investigate if we need to set up GPU params here
+        self.sess = tf.Session()
         if debug:
             self.sess = tf_debug.LocalCLIDebugWrapperSession(self.sess)
         self.sampler = sampler

@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Distribution object providing TF Energy function, sampling (when possible)
-and numpy log-density
+"""Distribution objects from the original L2HMC repostitory. Only used in
+the Mixture of Guassian experiment because there is a bug with using
+the tfp  mixture inside a while loop at the moment.
 """
 
 from __future__ import absolute_import

@@ -66,6 +66,8 @@ class Ring(Distribution):
     def log_prob_func(self):
 
         def donut_density(x):
+            # We numerically integrate the density around the ring using a
+            # fairly naive method.
             x = tf.reshape(x, [tf.shape(x)[0], 1, tf.shape(x)[1]])
             thetas = tf.lin_space(0., 2 * np.pi, 500)
             sins = tf.sin(thetas)

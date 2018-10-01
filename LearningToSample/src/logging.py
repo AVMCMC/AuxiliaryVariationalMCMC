@@ -22,10 +22,10 @@ def make_run_dir(log_dir):
         os.makedirs(os.path.join(run_dir, 'run_results'))
         os.makedirs(os.path.join(run_dir, 'run_figs'))
 
-    return {'info':os.path.join(run_dir, 'run_info'),
-            'ckpts':os.path.join(run_dir, 'run_ckpts'),
+    return {'info': os.path.join(run_dir, 'run_info'),
+            'ckpts': os.path.join(run_dir, 'run_ckpts'),
             'results': os.path.join(run_dir, 'run_results'),
-            'figs':os.path.join(run_dir, 'run_figs'),
-            'logs':os.path.join(run_dir, 'run_logs')
+            'figs': os.path.join(run_dir, 'run_figs'),
+            'logs': os.path.join(run_dir, 'run_logs')
             }
 

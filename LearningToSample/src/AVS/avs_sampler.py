@@ -1,3 +1,6 @@
+"""Code containing the base AVS sampler and a few variants that we experimented
+with. The Variational Sampler is the AVS sampler in the final paper."""
+
 import time
 import os
 
@@ -40,6 +43,9 @@ class VariationalSampler(Sampler):
 
         if init:
             if optimizer is not None:
+                # We learn two variationaal distributions in parallell and
+                # allow that we may want variable learnign rates and steps for these.
+
                 global_step1 = tf.Variable(0., name='global_step',
                                           trainable=False)
                 global_step2 = tf.Variable(0., name='global_step',
@@ -73,7 +79,6 @@ class VariationalSampler(Sampler):
         theta_op = self.theta_op
         phi_op = self.phi_op
 
-
         for t in range(max_iters):
             time1 = time.time()
             for i in range(extra_phi_steps):
@@ -84,7 +89,7 @@ class VariationalSampler(Sampler):
             losses.append(loss_)
             deltas.append(abs(losses[-1] - losses[-2]))
 
-            if t % print_freq == 0:
+            if save_path and t % print_freq == 0:
                 print('{}:   loss:   {}'.format(t, loss_))
                 sum_ = sess.run(self.loss_sum)
                 writer.add_summary(sum_)
@@ -105,10 +110,7 @@ class VariationalSampler(Sampler):
                        global_step=global_step1)
         return losses, train_time
 
-
-
-    def sample(self, num_samples, sess, writer, **kwargs):
-
+    def sample(self, num_samples, sess, **kwargs):
 
         x_samps = []
 
@@ -127,7 +129,6 @@ class VariationalSampler(Sampler):
             x_samps.append(x)
 
         return np.array(x_samps), sample_time
-
 
     def _build_loss(self):
         self.Qa = self._aux_a()
@@ -152,12 +153,14 @@ class VariationalSampler(Sampler):
                                             scope=scope_name + "/aux_xgiva")
 
     def _aux_a(self):
+        """ Variational Distribution on a """
         with tf.variable_scope('aux_a', reuse=tf.AUTO_REUSE):
             aux_mean = tf.zeros([self.trn_smpls, self.aux_dim])
             Qa = tfd.MultivariateNormalDiag(loc=aux_mean)
         return Qa
 
     def _aux_xgiva(self, a):
+        """ Variational distribution on x given a"""
         with tf.variable_scope('aux_xgiva', reuse=tf.AUTO_REUSE):
             h = a
             for _ in range(self.num_layers):
@@ -186,7 +189,6 @@ class VariationalSampler(Sampler):
                 sigmas.append(tf.exp(mean_and_sigma[:, offset+begin: offset+end]))
             mix_comps = tf.exp(mean_and_sigma[:, - self.num_mix :])
             mix_comps = mix_comps/tf.reduce_sum(mix_comps, axis=1, keepdims=True)
-            self.mix_comps = mix_comps  # just for plotting make this a class attribute
             Qax = tfd.Mixture(cat=tfd.Categorical(probs=mix_comps),
                               components=[tfd.MultivariateNormalDiag(loc=m, scale_diag=s)
                               for m, s in zip(means, sigmas)])
